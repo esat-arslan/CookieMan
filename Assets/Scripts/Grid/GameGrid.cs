@@ -1,21 +1,21 @@
 using UnityEngine;
 
-public class GameGrid 
+public class GameGrid
 {
-    private int width;
-    public int Width => width;
-    
     private int height;
-    public int Height => height;
-    
+    private int width;
     private GridObject[,] gridObjects;
+
+    public int Width => width;
+    public int Height => height;
+    public GridObject[,] GetGridObjects() => gridObjects;
 
     public GameGrid(int width, int height)
     {
         this.width = width;
         this.height = height;
-        
-        gridObjects = new GridObject[width , height];
+
+        gridObjects = new GridObject[width, height];
         InitializeGrid();
     }
 
@@ -30,6 +30,5 @@ public class GameGrid
             }
         }
     }
-    
-    public GridObject[,] GetGridObjects() => gridObjects;
+
 }
