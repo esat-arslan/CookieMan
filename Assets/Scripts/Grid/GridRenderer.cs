@@ -9,8 +9,8 @@ public class GridRenderer
         this.origin = origin;
     }
 
-    public Vector3 GetWorldPosition(int x, int y)
+    public Vector3 GetWorldPosition(GridCell cell)
     {
-        return new Vector3(x, y, 0) + origin;
+        return new Vector3(cell.X, cell.Y, 0) + origin;
     }
 }

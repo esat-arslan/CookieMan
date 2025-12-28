@@ -25,10 +25,22 @@ public class GameGrid
         {
             for (int y = 0; y < height; y++)
             {
-                Vector2Int cellPosition = new Vector2Int(x, y);
+                var cellPosition = new GridCell(x, y);
                 gridObjects[x, y] = new GridObject(cellPosition);
             }
         }
     }
 
+}
+
+public readonly struct GridCell
+{
+    public int X {get;}
+    public int Y {get;}
+    
+    public GridCell(int x, int y)
+    {
+        X = x;
+        Y = y;
+    }
 }
