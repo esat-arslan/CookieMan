@@ -9,14 +9,20 @@ public class PlayerMovement : MonoBehaviour
     private bool shouldMove = false;
     private Vector2 previousInputDir;
     private Vector2 currentInputDir;
-    
     private Vector2 moveTarget;
 
     private GridManager grid;
 
+    public event Action<Vector2> OnDirectionChanged;
+
     private void Start()
     {
         grid = GridManager.Instance;
+
+        previousInputDir = Vector2.right;
+        currentInputDir = Vector2.right;
+
+        shouldMove = true;
     }
 
     private void Update()
@@ -44,13 +50,11 @@ public class PlayerMovement : MonoBehaviour
     {
         if (context.phase == InputActionPhase.Started)
         {
-            shouldMove = true;
             return;
         }
 
         if (context.phase == InputActionPhase.Canceled)
         {
-            shouldMove = false;
             return;
         }
 
@@ -59,6 +63,8 @@ public class PlayerMovement : MonoBehaviour
 
         // fix for oscillating on one axis
         HandleDirSwitch(newDirection);
+
+        OnDirectionChanged?.Invoke(newDirection);
     }
 
     private void HandleDirSwitch(Vector2 newDirection)
@@ -98,9 +104,9 @@ public class PlayerMovement : MonoBehaviour
         
         if (grid.IsNeighborCellWalkable(transform.position, dir))
         {
-            return grid.GetNeighborPositionFromDirVector(transform.position, dir);
+            return grid.GetNeighborCellPosition(transform.position, dir);
         }
 
-        return grid.GetCurrentCellPosition(transform.position);
+        return grid.GetCellPosition(transform.position);
     }
 }

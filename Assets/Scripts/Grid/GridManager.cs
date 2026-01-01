@@ -3,12 +3,18 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
+/// <summary>
+/// Singleton GridManager
+/// its job is to initiaize a new grid
+/// create a new gameGrid, a new gridRenderer
+/// </summary>
 [ExecuteAlways]
-public class GridManager : MonoBehaviour
+public partial class GridManager : MonoBehaviour
 {
     private static GridManager instance;
     public static GridManager Instance => instance;
 
+    // Tilemap to assign.
     [SerializeField] private Tilemap tilemap;
 
     private GameGrid grid;
@@ -27,27 +33,35 @@ public class GridManager : MonoBehaviour
         InitializeGrid();
     }
 
+    /// <summary>
+    /// Initializes the game grid from the Tilemap by creating grid data
+    /// and assigning cell types based on Tilemap tiles
+    /// </summary>
     private void InitializeGrid()
     {
         if (tilemap == null) return;
-        tilemap.CompressBounds();
+        tilemap.CompressBounds(); //only get the tilemap Size where it exists
 
-        grid = new GameGrid(tilemap.size.x, tilemap.size.y);
-        gridRenderer = new GridRenderer(tilemap.origin);
+        grid = new GameGrid(tilemap.size.x, tilemap.size.y); // Create a new GameGrid with the size of the Tilemap.
+        gridRenderer = new GridRenderer(tilemap.origin, grid); // Creates a GridRenderer aligned to the Tilemap origin
 
         foreach (GridObject gridObject in grid.GetGridObjects())
         {
+            // Convert grid coordinates to world position
             Vector3 objectWorldPos = gridRenderer.GetWorldPosition(gridObject.GetCellPosition());
 
+            // Convert world position to Tilemap cell coordinates
             int xVal = Mathf.FloorToInt(objectWorldPos.x);
             int yVal = Mathf.FloorToInt(objectWorldPos.y);
 
+            // get the tile for the current cell.
             TileBase tile = tilemap.GetTile(new Vector3Int(xVal, yVal, 0));
 
             if (tile == null) continue;
 
             Type tileType = tile.GetType();
 
+            // check the tileType and assign it accordingly.
             if (tileType == typeof(Wall))
             {
                 gridObject.Type = GridObjectType.Wall;
