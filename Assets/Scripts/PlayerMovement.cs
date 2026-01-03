@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     private GridManager grid;
 
     public event Action<Vector2> OnDirectionChanged;
+    public Vector2 CurrentInputDir => currentInputDir;
 
     private void Start()
     {
@@ -110,3 +111,4 @@ public class PlayerMovement : MonoBehaviour
         return grid.GetCellPosition(transform.position);
     }
 }
+

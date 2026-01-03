@@ -130,6 +130,7 @@ GameObject:
   - component: {fileID: 142276077}
   - component: {fileID: 142276076}
   - component: {fileID: 142276075}
+  - component: {fileID: 142276078}
   m_Layer: 0
   m_Name: Archie
   m_TagString: Untagged
@@ -227,12 +228,28 @@ Transform:
   m_GameObject: {fileID: 142276074}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.5, y: -9.5, z: 0}
+  m_LocalPosition: {x: 7.5, y: 2.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &142276078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 142276074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ed6da1f8c9a290a09e84c364d37d7c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MonsterMovement
+  speed: 3
+  player: {fileID: 222931297}
+  ghostType: 1
+  rozy: {fileID: 0}
 --- !u!1 &219838989
 GameObject:
   m_ObjectHideFlags: 0
@@ -244,6 +261,7 @@ GameObject:
   - component: {fileID: 219838992}
   - component: {fileID: 219838991}
   - component: {fileID: 219838990}
+  - component: {fileID: 219838993}
   m_Layer: 0
   m_Name: Pochy
   m_TagString: Untagged
@@ -341,12 +359,28 @@ Transform:
   m_GameObject: {fileID: 219838989}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.5, y: -9.5, z: 0}
+  m_LocalPosition: {x: -0.5, y: -3.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &219838993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 219838989}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ed6da1f8c9a290a09e84c364d37d7c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MonsterMovement
+  speed: 3
+  player: {fileID: 222931297}
+  ghostType: 3
+  rozy: {fileID: 0}
 --- !u!1 &222931297
 GameObject:
   m_ObjectHideFlags: 0
@@ -677,6 +711,7 @@ GameObject:
   - component: {fileID: 678234145}
   - component: {fileID: 678234144}
   - component: {fileID: 678234143}
+  - component: {fileID: 678234146}
   m_Layer: 0
   m_Name: Freezy
   m_TagString: Untagged
@@ -774,12 +809,28 @@ Transform:
   m_GameObject: {fileID: 678234142}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.5, y: -9.5, z: 0}
+  m_LocalPosition: {x: -9.5, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &678234146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 678234142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ed6da1f8c9a290a09e84c364d37d7c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MonsterMovement
+  speed: 3
+  player: {fileID: 222931297}
+  ghostType: 2
+  rozy: {fileID: 828993993}
 --- !u!1 &828993993
 GameObject:
   m_ObjectHideFlags: 0
@@ -791,6 +842,7 @@ GameObject:
   - component: {fileID: 828993995}
   - component: {fileID: 828993994}
   - component: {fileID: 828993996}
+  - component: {fileID: 828993997}
   m_Layer: 0
   m_Name: Rozy
   m_TagString: Untagged
@@ -866,7 +918,7 @@ Transform:
   m_GameObject: {fileID: 828993993}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.5, y: -9.5, z: 0}
+  m_LocalPosition: {x: -1.5, y: 12.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -894,6 +946,22 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &828993997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 828993993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ed6da1f8c9a290a09e84c364d37d7c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MonsterMovement
+  speed: 3
+  player: {fileID: 222931297}
+  ghostType: 0
+  rozy: {fileID: 0}
 --- !u!1 &1543780528
 GameObject:
   m_ObjectHideFlags: 0
