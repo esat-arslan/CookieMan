@@ -36,4 +36,9 @@ public partial class GridManager
         GridCell cell = gridRenderer.GetCell(worldPos);
         return gridRenderer.GetCellCenter(cell);
     }
+
+    public Vector3 GetNonWalkableStartPosition()
+    {
+        return gridRenderer.GetWorldPosition(new GridCell(0,0));
+    }
 }

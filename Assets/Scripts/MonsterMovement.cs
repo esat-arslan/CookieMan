@@ -5,15 +5,19 @@ using Vector3 = UnityEngine.Vector3;
 
 public class MonsterMovement : MonoBehaviour
 {
+    [Header("Movement Settings")]
     [SerializeField] private int speed = 3;
-    [SerializeField] private GameObject player;
     [SerializeField] private GhostType ghostType;
-    [SerializeField] private GameObject rozy;
+    [Header("References")]
+    [SerializeField] private GameObject player;
+    [SerializeField] private GameObject rozy; // Only needed for freezy
 
-    private Vector2 previousPosition;
-    private Vector2 currentDirection;
+    private PlayerMovement playerScript;
+    private MonsterAnimator monsterAnimator;
     private GridManager grid;
-    private Vector3 targetPos;
+
+    private Vector2 currentDirection;
+    private Vector3 targetWorldPos;
     private Vector2 targetTile;
     private bool hasTarget;
     private float scatterDistanceSQ = 64;
@@ -22,138 +26,93 @@ public class MonsterMovement : MonoBehaviour
     private void Start()
     {
         grid = GridManager.Instance;
-        previousPosition = transform.position;
-        currentDirection = Vector2.zero;
+        monsterAnimator = gameObject.GetComponent<MonsterAnimator>();
 
+        currentDirection = Vector2.right;
+        if (player != null)
+        {
+            playerScript = player.GetComponent<PlayerMovement>();
+        }
+
+        targetWorldPos = grid.GetCellPosition(transform.position);
         targetTile = grid.GetCellPosition(transform.position);
         hasTarget = false;
+
+        monsterAnimator.SetDefault(true);
 
     }
 
     private void Update()
     {
-        Move();
+        HandleMovement();
     }
 
-    private void Move()
+    private void HandleMovement()
     {
         if (!hasTarget)
         {
-            Vector2 currentTarget = GetTargetTile();
-            currentDirection = ChooseDirection(currentTarget);
-            targetTile = GetTarget(currentDirection);
-            hasTarget = true;
-        }
+            Vector2 playerPos = player.transform.position;
+            Vector2 playerDir = (playerScript != null) ? playerScript.CurrentInputDir : Vector2.zero;
+            Vector2 rozyPos = (rozy != null) ? (Vector2)rozy.transform.position : Vector2.zero;
 
-        Vector2 currentPos = transform.position;
-        float step = speed * Time.deltaTime;
-        float distanceToTarget = Vector2.Distance(transform.position, targetTile);
-
-        if (distanceToTarget <= step)
-        {
-            transform.position = new Vector3(targetTile.x, targetTile.y, transform.position.z);
-            hasTarget = false;
-        }
-        else
-        {
-            Vector2 newPos = Vector2.MoveTowards(transform.position, targetTile, step);
-            transform.position = new Vector3(newPos.x, newPos.y, transform.position.z);
-        }
-        /*if (Vector2.Distance(newPos, targetTile) < 0.01f)
-        {
-            transform.position = new Vector3
-            (
-                targetTile.x,
-                targetTile.y,
-                transform.position.z
+            Vector2 finalTargetTile = AI_Brain.GetTargetTile(
+                ghostType,
+                transform.position,
+                playerPos,
+                playerDir,
+                rozyPos,
+                scatterDistanceSQ
             );
 
+            currentDirection = AI_Brain.ChooseNextDirection(grid, transform.position, currentDirection, finalTargetTile);
+
+            targetWorldPos = grid.GetNeighborCellPosition(transform.position, currentDirection);
+            hasTarget = true;
+
+            monsterAnimator.HandleDirectionState(currentDirection);
+        }
+
+        MoveTowardsTarget();
+    }
+
+    private void MoveTowardsTarget()
+    {
+        float step = speed * Time.deltaTime;
+        transform.position = Vector3.MoveTowards(transform.position, targetWorldPos, step);
+
+        // Check if we arrived
+        if (Vector3.Distance(transform.position, targetWorldPos) < 0.001f)
+        {
+            transform.position = targetWorldPos; // Snap to grid
             hasTarget = false;
-        }*/
-
-    }
-
-    private Vector2 GetTargetTile()
-    {
-        Vector2 playerPos = player.transform.position;
-        Vector2 playerDir = player.GetComponent<PlayerMovement>().CurrentInputDir;
-
-        switch (ghostType)
-        {
-            case GhostType.Rozy:
-                return playerPos;
-            case GhostType.Archie:
-                return playerPos + (playerDir * 4);
-            case GhostType.Pochy:
-                float dist = Vector2.SqrMagnitude(playerPos - (Vector2)transform.position);
-                if (dist < scatterDistanceSQ) return Vector2.zero; else return playerPos;
-            case GhostType.Freezy:
-                return CalculateFreezysTarget();
-            default:
-                return playerPos;
         }
     }
 
-    private Vector2 CalculateFreezysTarget()
-    {
-        Vector2 rozyPos = rozy.transform.position;
-        Vector2 playerPos = player.transform.position;
-        Vector2 playerDir = player.GetComponent<PlayerMovement>().CurrentInputDir;
-        Vector2 pivot = playerPos + (playerDir * 2);
-
-        return (pivot * 2) - rozyPos;
-    }
-
-    private Vector2 ChooseDirection(Vector2 target)
-    {
-        Vector2[] Directions = { Vector2.down, Vector2.left, Vector2.right, Vector2.up };
-        Vector2 bestDirection = Vector2.zero;
-        float minDistance = float.MaxValue;
-
-        foreach (Vector2 dir in Directions)
-        {
-            if (!grid.IsNeighborCellWalkable(transform.position, dir)) continue;
-            if (dir == -currentDirection) continue;
-            Vector2 neighborPos = grid.GetNeighborCellPosition(transform.position, dir);
-            float dist = Vector2.SqrMagnitude(neighborPos - target);
-
-            if (dist < minDistance)
-            {
-                minDistance = dist;
-                bestDirection = dir;
-            }
-        }
-        return bestDirection;
-    }
-
-    private Vector3 GetTarget(Vector2 dir)
-    {
-        if (dir == Vector2.zero) return transform.position;
-
-        if (grid.IsNeighborCellWalkable(transform.position, dir))
-        {
-            return grid.GetNeighborCellPosition(transform.position, dir);
-        }
-
-        return grid.GetCellPosition(transform.position);
-    }
 
     private void OnDrawGizmos()
     {
         if (hasTarget)
         {
             Gizmos.color = Color.yellow;
-            Gizmos.DrawLine(transform.position, (Vector3)targetTile);
+            Gizmos.DrawLine(transform.position, targetWorldPos);
         }
 
         if (Application.isPlaying && player != null)
         {
-            Vector2 currentGoal = GetTargetTile();
+            Vector2 playerPos = player.transform.position;
+            Vector2 playerDir = (playerScript != null) ? playerScript.CurrentInputDir : Vector2.zero;
+            Vector2 rozyPos = (rozy != null) ? (Vector2)rozy.transform.position : Vector2.zero;
+            Vector2 currentGoal = AI_Brain.GetTargetTile(ghostType,
+                transform.position,
+                playerPos,
+                playerDir,
+                rozyPos,
+                scatterDistanceSQ);
 
             Gizmos.color = ghostType switch
             {
                 GhostType.Rozy => Color.red,
-                GhostType.Archie => Color.magenta, 
+                GhostType.Archie => Color.magenta,
                 GhostType.Freezy => Color.cyan,
                 GhostType.Pochy => new Color(1f, 0.5f, 0f),
                 _ => Color.white
@@ -170,7 +129,7 @@ public class MonsterMovement : MonoBehaviour
             Vector2 pivot = playerPos + (playerDir * 2);
 
             Gizmos.color = Color.white;
-            Gizmos.DrawSphere(pivot, 0.2f); 
+            Gizmos.DrawSphere(pivot, 0.2f);
         }
     }
 }

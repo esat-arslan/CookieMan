@@ -9,7 +9,7 @@ public class MonsterAnimator : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    private void HandleDirectionState(Vector2 dir)
+    public void HandleDirectionState(Vector2 dir)
     {
         animator.SetInteger("MoveX", (int)dir.x);
         animator.SetInteger("MoveY", (int)dir.y);
