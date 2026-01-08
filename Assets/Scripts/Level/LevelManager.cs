@@ -3,12 +3,16 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
-    // TODO: remove this
     public bool isFrightened;
 
     [SerializeField]
     private Conf_Portals portalsConf;
     public Conf_Portals PortalsConf => portalsConf;
+
+    [SerializeField]
+    private Conf_SuperCookies superCookieConf;
+
+    public Conf_SuperCookies SuperCookieConf => superCookieConf;
 
     [SerializeField]
     private GameObject portalsPrefab;

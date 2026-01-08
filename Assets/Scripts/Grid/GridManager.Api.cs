@@ -51,4 +51,14 @@ public partial class GridManager
     {
         return gridRenderer.GetWorldPosition(new GridCell(0, 0));
     }
+
+    public GridObject[,] GetGridObjects()
+    {
+        return grid.GetGridObjects();
+    }
+
+    public Vector3 GetWorldPosition(GridCell gridCell)
+    {
+        return gridRenderer.GetCellCenter(gridCell);
+    }
 }
