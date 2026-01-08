@@ -3,20 +3,14 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-/// <summary>
-/// Singleton GridManager
-/// its job is to initiaize a new grid
-/// create a new gameGrid, a new gridRenderer
-/// </summary>
 [ExecuteAlways]
 public partial class GridManager : MonoBehaviour
 {
     private static GridManager instance;
     public static GridManager Instance => instance;
-
-    // Tilemap to assign.
+    
     [SerializeField] private Tilemap tilemap;
-
+    
     private GameGrid grid;
     private GridRenderer gridRenderer;
     private bool showGrid;
@@ -29,84 +23,79 @@ public partial class GridManager : MonoBehaviour
             return;
         }
         instance = this;
-
+        
         InitializeGrid();
     }
-
-    /// <summary>
-    /// Initializes the game grid from the Tilemap by creating grid data
-    /// and assigning cell types based on Tilemap tiles
-    /// </summary>
+    
     private void InitializeGrid()
-    {
+    {   
         if (tilemap == null) return;
-        tilemap.CompressBounds(); //only get the tilemap Size where it exists
-
-        grid = new GameGrid(tilemap.size.x, tilemap.size.y); // Create a new GameGrid with the size of the Tilemap.
-        gridRenderer = new GridRenderer(tilemap.origin, grid); // Creates a GridRenderer aligned to the Tilemap origin
+        tilemap.CompressBounds();
+        
+        grid = new GameGrid(tilemap.size.x, tilemap.size.y);
+        gridRenderer = new GridRenderer(tilemap.origin, grid);
 
         foreach (GridObject gridObject in grid.GetGridObjects())
         {
-            // Convert grid coordinates to world position
-            Vector3 objectWorldPos = gridRenderer.GetWorldPosition(gridObject.GetCellPosition());
+            Vector3 objectWorldPosition = gridRenderer.GetWorldPosition(gridObject.GetCellPosition());
 
-            // Convert world position to Tilemap cell coordinates
-            int xVal = Mathf.FloorToInt(objectWorldPos.x);
-            int yVal = Mathf.FloorToInt(objectWorldPos.y);
-
-            // get the tile for the current cell.
+            int xVal = Mathf.FloorToInt(objectWorldPosition.x);
+            int yVal = Mathf.FloorToInt(objectWorldPosition.y);
             TileBase tile = tilemap.GetTile(new Vector3Int(xVal, yVal, 0));
-
+            
             if (tile == null) continue;
 
-            Type tileType = tile.GetType();
+            Type tyleType = tile.GetType();
 
-            // check the tileType and assign it accordingly.
-            if (tileType == typeof(Wall))
+            if (tyleType == typeof(Wall))
             {
                 gridObject.Type = GridObjectType.Wall;
             }
 
-            if (tileType == typeof(Path))
+            if (tyleType == typeof(Path))
             {
                 gridObject.Type = GridObjectType.Path;
             }
+
+            if (tyleType == typeof(Chamber))
+            {
+                gridObject.Type = GridObjectType.Chamber;
+            }
         }
-
-        //ask the tilemap about the respective tile type
     }
-
-#if UNITY_EDITOR
+    
+    #if UNITY_EDITOR
 
     private void OnDrawGizmos()
-    {
+    {   
         if (tilemap == null || grid == null || showGrid == false) return;
-
+        
         Gizmos.color = Color.cyan;
-
+        
         GridObject[,] gridObjects = grid.GetGridObjects();
 
         foreach (GridObject gridObject in gridObjects)
         {
             GridCell currentCell = gridObject.GetCellPosition();
-
+            
             Vector3 cellWorldPosition = gridRenderer.GetWorldPosition(currentCell);
-
+            
             int xPos = (int)cellWorldPosition.x;
             int yPos = (int)cellWorldPosition.y;
-
-            Vector3 startVertical = new Vector3(xPos, yPos);
-            Vector3 endVertical = new Vector3(xPos, yPos + 1);
+            
+            Vector3 startVertical =  new Vector3(xPos, yPos);
+            Vector3 endVertical =  new Vector3(xPos, yPos + 1);
             Gizmos.DrawLine(startVertical, endVertical);
-
-            Vector3 startHorizontal = new Vector3(xPos, yPos);
-            Vector3 endHorizontal = new Vector3(xPos + 1, yPos);
+            
+            Vector3 startHorizontal =  new Vector3(xPos, yPos);
+            Vector3 endHorizontal =  new Vector3(xPos + 1, yPos);
             Gizmos.DrawLine(startHorizontal, endHorizontal);
-
-            Vector3 cellCenter = new Vector3((xPos + 0.5f), (yPos + 0.5f));
+            
+            Vector3 cellCenter =  new Vector3((xPos + 0.5f), (yPos + 0.5f));
 
             if (gridObject.Type == GridObjectType.Wall)
             {
+                // Mark Wall Cells
                 GUIStyle wallTextStyle = new GUIStyle();
                 wallTextStyle.normal.textColor = Color.orange;
                 wallTextStyle.fontSize = 12;
@@ -114,13 +103,25 @@ public partial class GridManager : MonoBehaviour
                 wallTextStyle.alignment = TextAnchor.MiddleCenter;
                 Handles.Label(cellCenter, $"Wall", wallTextStyle);
             }
+            
             if (gridObject.Type == GridObjectType.Path)
             {
+                // Draw Grid Position Text
                 GUIStyle textStyle = new GUIStyle();
                 textStyle.normal.textColor = Color.white;
                 textStyle.alignment = TextAnchor.MiddleCenter;
                 Handles.Label(cellCenter, $"({currentCell.X}, {currentCell.Y})", textStyle);
-
+            }
+            
+            if (gridObject.Type == GridObjectType.Chamber)
+            {
+                GUIStyle textStyle = new GUIStyle();
+                textStyle.normal.textColor = Color.magenta;
+                textStyle.alignment = TextAnchor.MiddleCenter;
+                textStyle.fontSize = 12;
+                textStyle.fontStyle = FontStyle.Bold;
+                textStyle.alignment = TextAnchor.MiddleCenter;
+                Handles.Label(cellCenter, $"Chamber", textStyle);
             }
         }
 
@@ -129,24 +130,24 @@ public partial class GridManager : MonoBehaviour
 
         Vector3 firstCellWorldSpace = gridRenderer.GetWorldPosition(new GridCell(0, 0));
         Vector3 lastCellWorldSpace = gridRenderer.GetWorldPosition(new GridCell(tilemapWidth, tilemapHeight));
-
+        
         float originWorldSpaceX = firstCellWorldSpace.x;
         float originWorldSpaceY = firstCellWorldSpace.y;
-
+        
         float widthWorldSpace = lastCellWorldSpace.x;
         float heightWorldSpace = lastCellWorldSpace.y;
-
+        
         // Draw one more row/column
-        Vector3 finalStartVertical = new Vector3(widthWorldSpace, originWorldSpaceY);
-        Vector3 finalEndVertical = new Vector3(widthWorldSpace, heightWorldSpace);
+        Vector3 finalStartVertical =  new Vector3(widthWorldSpace, originWorldSpaceY);
+        Vector3 finalEndVertical =  new Vector3(widthWorldSpace, heightWorldSpace);
         Gizmos.DrawLine(finalStartVertical, finalEndVertical);
 
-        Vector3 finalStartHorizontal = new Vector3(originWorldSpaceX, heightWorldSpace);
-        Vector3 finalEndHorizontal = new Vector3(widthWorldSpace, heightWorldSpace);
+        Vector3 finalStartHorizontal =  new Vector3(originWorldSpaceX, heightWorldSpace);
+        Vector3 finalEndHorizontal =  new Vector3(widthWorldSpace, heightWorldSpace);
         Gizmos.DrawLine(finalStartHorizontal, finalEndHorizontal);
     }
-
-#endif
+    
+    #endif
 
     public void RegenerateGrid()
     {
@@ -157,5 +158,4 @@ public partial class GridManager : MonoBehaviour
     {
         showGrid = !showGrid;
     }
-    
 }

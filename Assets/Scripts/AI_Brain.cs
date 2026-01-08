@@ -2,7 +2,7 @@ using UnityEngine;
 
 public static class AI_Brain
 {
-    public static Vector2 GetTargetTile(GhostType type, Vector2 ghostPos, Vector2 playerPos, Vector2 playerDir, Vector2 rozyPos, float scatterDistSq)
+    /*public static Vector2 GetTargetTile(GhostType type, Vector2 ghostPos, Vector2 playerPos, Vector2 playerDir, Vector2 rozyPos, float scatterDistSq)
     {
         switch (type)
         {
@@ -50,5 +50,5 @@ public static class AI_Brain
             }
         }
         return bestDir;
-    }
+    }*/
 }

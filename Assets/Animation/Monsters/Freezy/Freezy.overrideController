@@ -7,13 +7,13 @@ AnimatorOverrideController:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Freezy
-  m_Controller: {fileID: 9100000, guid: fcb7a541bd89dd649a30f0172fa7e880, type: 2}
+  m_Controller: {fileID: 9100000, guid: 2e7dcc60efa5aa441b4ec049aa770490, type: 2}
   m_Clips:
-  - m_OriginalClip: {fileID: 7400000, guid: 81b15afb157e7879699ebb7048cb8731, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: 307eb83bdeed6a073a602145870c5f03, type: 2}
-  - m_OriginalClip: {fileID: 7400000, guid: 275522923b02e7d528d417ab88640469, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: 2c789eecae8183a75b166ee7fb2a4c03, type: 2}
-  - m_OriginalClip: {fileID: 7400000, guid: 1641307c5c2f0293fb95d3dfbf065f8c, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: f4c3a288ccad134a78b2190c00f458c4, type: 2}
-  - m_OriginalClip: {fileID: 7400000, guid: b2994834797b190f985d9240066ebdf9, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: cb37301b47e30764aaa66c6992aec0f0, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: d774cfb0b04bd5d4ca31bfc347fae18e, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: b80e154eb7230a34e99d316f675e0b5c, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: f7c59465460f4a740974fef4317ba6ae, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 0763e2a23e4366346881a0c3f15ecb6f, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 2461f86dce7b3d64d82a0a063ff86d9b, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 8ea4e22ce569e5548969c6f07d9a5a9a, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: ac95ee1a07686c94088b2674fa9fa7a9, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 7b959c773a50ef44183ace4431bf7297, type: 2}

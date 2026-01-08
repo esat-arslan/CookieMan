@@ -2,27 +2,29 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerMovement : MonoBehaviour
-{   
+public class PlayerMovement : MonoBehaviour, IPortable
+{
     [SerializeField] private int speed = 3;
-    
+
     private bool shouldMove = false;
     private Vector2 previousInputDir;
     private Vector2 currentInputDir;
+
     private Vector2 moveTarget;
 
     private GridManager grid;
+    private LevelManager level;
 
+    public Vector2 PlayerDirection => currentInputDir;
     public event Action<Vector2> OnDirectionChanged;
-    public Vector2 CurrentInputDir => currentInputDir;
 
     private void Start()
     {
         grid = GridManager.Instance;
+        level = GameObject.FindWithTag("Level").GetComponent<LevelManager>();
 
         previousInputDir = Vector2.right;
         currentInputDir = Vector2.right;
-
         shouldMove = true;
     }
 
@@ -73,7 +75,7 @@ public class PlayerMovement : MonoBehaviour
         // Direcion on perpendicular Axis
         previousInputDir = currentInputDir;
         currentInputDir = newDirection;
-        
+
         // Direction on same Axis
         if (ShouldSwitchDirection())
         {
@@ -102,7 +104,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 GetTarget(Vector2 dir)
     {
         if (dir == Vector2.zero) return transform.position;
-        
+
         if (grid.IsNeighborCellWalkable(transform.position, dir))
         {
             return grid.GetNeighborCellPosition(transform.position, dir);
@@ -110,5 +112,31 @@ public class PlayerMovement : MonoBehaviour
 
         return grid.GetCellPosition(transform.position);
     }
-}
 
+    public void Teleport(Vector3 portalPos, Vector2Int entryDir)
+    {
+        Vector3 portal1 = grid.GetCellPosition(level.PortalsConf.portal1);
+        Vector3 portal2 = grid.GetCellPosition(level.PortalsConf.portal2);
+
+        portalPos = grid.GetCellPosition(portalPos);
+
+        currentInputDir = entryDir;
+        previousInputDir = entryDir;
+
+        if (portalPos == portal1)
+        {
+            Vector3 nextToPortal = grid.GetNeighborCellPosition(portal2, entryDir);
+            transform.position = nextToPortal + new Vector3(entryDir.x, entryDir.y, 0) * 0.1f;
+            moveTarget = grid.GetNeighborCellPosition(nextToPortal, entryDir);
+        }
+
+        if (portalPos == portal2)
+        {
+            Vector3 nextToPortal = grid.GetNeighborCellPosition(portal1, entryDir);
+            transform.position = nextToPortal + new Vector3(entryDir.x, entryDir.y, 0) * 0.1f;
+            moveTarget = grid.GetNeighborCellPosition(nextToPortal, entryDir);
+        }
+
+        OnDirectionChanged?.Invoke(entryDir);
+    }
+}

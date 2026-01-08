@@ -6,7 +6,7 @@ public class NPC_Debugger : MonoBehaviour
 {
     public GameObject pathPrefab;
     
-    private NPC_Controller npc;
+    private Monster_Controller npc;
     private List<(Vector2 dir, Vector3 pos)> pathPositions = new();
     private List<GameObject> pathVisualizers = new();
     private Color pathColor;
@@ -14,7 +14,7 @@ public class NPC_Debugger : MonoBehaviour
 
     private void Start()
     {
-        npc = GetComponent<NPC_Controller>();
+        npc = GetComponent<Monster_Controller>();
         pathColor = npc.Configuration.monsterColor;
 
         debugParent = GameObject.FindGameObjectWithTag("Debug").transform;
@@ -36,7 +36,7 @@ public class NPC_Debugger : MonoBehaviour
         
         while (finalTarget != nextResult.newTarget && counter > 0)
         {
-            nextResult = AI_Navigation.GetNextIntermediateTarget(nextResult.newDir, nextResult.newTarget, finalTarget);
+            nextResult = AI_Navigation.GetNextDefaultTarget(nextResult.newDir, nextResult.newTarget, finalTarget);
             pathPositions.Add(nextResult);
 
             counter--;

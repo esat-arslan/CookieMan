@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7eec392b108b4fb199b17eef1aafe3ed, type: 3}
+  m_Name: Monster_FSM
+  m_EditorClassIdentifier: 
+  initialState: {fileID: 11400000, guid: c75a4d736f6a1a848afd82a1f275f20f, type: 2}
+  transitions:
+  - {fileID: 11400000, guid: 0231d3fad81c2de4792f64fcd515c67e, type: 2}
+  - {fileID: 11400000, guid: b020b916e86275b4baee4ede7b068c62, type: 2}
+  - {fileID: 11400000, guid: 8723498be9912364095f3b503871c0b7, type: 2}
+  - {fileID: 11400000, guid: aae4a5b7dec8a094aafc5807be2a56bf, type: 2}
+  - {fileID: 11400000, guid: 08f166b5f1fd44249b010630ca845ed8, type: 2}
+  - {fileID: 11400000, guid: 23d888a31d087ef48a90c1e319a59044, type: 2}
+  - {fileID: 11400000, guid: 6204a115903308d4096a164e21408511, type: 2}
+  - {fileID: 11400000, guid: 941dc2024667e354f9666dcb534c06f8, type: 2}
+  - {fileID: 11400000, guid: e7dc57d59df2997429e41d27a784018c, type: 2}

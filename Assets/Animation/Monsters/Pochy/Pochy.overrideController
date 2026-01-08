@@ -7,13 +7,13 @@ AnimatorOverrideController:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Pochy
-  m_Controller: {fileID: 9100000, guid: fcb7a541bd89dd649a30f0172fa7e880, type: 2}
+  m_Controller: {fileID: 9100000, guid: 2e7dcc60efa5aa441b4ec049aa770490, type: 2}
   m_Clips:
-  - m_OriginalClip: {fileID: 7400000, guid: 81b15afb157e7879699ebb7048cb8731, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: f6abbd7a292f5288dabd2d74eecc99ef, type: 2}
-  - m_OriginalClip: {fileID: 7400000, guid: 275522923b02e7d528d417ab88640469, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: 44837c8e623e06508972a13a73d8e5d0, type: 2}
-  - m_OriginalClip: {fileID: 7400000, guid: 1641307c5c2f0293fb95d3dfbf065f8c, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: daab58d0464b0c7ce834561f7b04ad74, type: 2}
-  - m_OriginalClip: {fileID: 7400000, guid: b2994834797b190f985d9240066ebdf9, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: 7dea2370ba74ed9808e84b8c2ea7f7c0, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: d774cfb0b04bd5d4ca31bfc347fae18e, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: d8a88b98e5b7cdb489e31bfe1162f8a0, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: f7c59465460f4a740974fef4317ba6ae, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 14d4e59b886a35a40af883a42aca4339, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 2461f86dce7b3d64d82a0a063ff86d9b, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 6038df224a03f834da81f2296ee1dc8b, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: ac95ee1a07686c94088b2674fa9fa7a9, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 1446270d9dbaa1449b70c2f9e1e80f19, type: 2}

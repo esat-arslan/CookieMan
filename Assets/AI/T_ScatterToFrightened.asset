@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7721b7d38c074706822ce3aa28cdadb9, type: 3}
+  m_Name: T_ScatterToFrightened
+  m_EditorClassIdentifier: 
+  fromState: {fileID: 11400000, guid: c75a4d736f6a1a848afd82a1f275f20f, type: 2}
+  toState: {fileID: 11400000, guid: 27d868d9a5483a4498a36bb53c947f14, type: 2}

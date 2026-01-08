@@ -7,13 +7,13 @@ AnimatorOverrideController:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Rozy
-  m_Controller: {fileID: 9100000, guid: fcb7a541bd89dd649a30f0172fa7e880, type: 2}
+  m_Controller: {fileID: 9100000, guid: 2e7dcc60efa5aa441b4ec049aa770490, type: 2}
   m_Clips:
-  - m_OriginalClip: {fileID: 7400000, guid: 81b15afb157e7879699ebb7048cb8731, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: 9074b1844bdafcabbba07fa25c3482d3, type: 2}
-  - m_OriginalClip: {fileID: 7400000, guid: 275522923b02e7d528d417ab88640469, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: b7bf3d5a69a783f7a8c93cc0341175ae, type: 2}
-  - m_OriginalClip: {fileID: 7400000, guid: 1641307c5c2f0293fb95d3dfbf065f8c, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: ba0b33ad9a9ed62b28a7dd5ff9d044a5, type: 2}
-  - m_OriginalClip: {fileID: 7400000, guid: b2994834797b190f985d9240066ebdf9, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: f53cdd79d6c0f8d67ba481e82b1ca7c3, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: d774cfb0b04bd5d4ca31bfc347fae18e, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 12afb8a7689a4034fa5325b31dbbacf5, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: f7c59465460f4a740974fef4317ba6ae, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: aa27e2ffbdee36b4fbb5acc436d0328f, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 2461f86dce7b3d64d82a0a063ff86d9b, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 0326eccd8e351574eb28b064dfda8b77, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: ac95ee1a07686c94088b2674fa9fa7a9, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 2bf98b433e1e77b43aacfeabb315e54d, type: 2}
