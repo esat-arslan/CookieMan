@@ -148,7 +148,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bda1298eb7e778548be46275e7dae7fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFrightened: 0
   portalsConf: {fileID: 11400000, guid: 092214b90dd0c2cce9fb5359a261d68e, type: 2}
   superCookieConf: {fileID: 11400000, guid: f31c7fd95e08251bf9aec693332d357a, type: 2}
   portalsPrefab: {fileID: 8355579104810043565, guid: 98a384a0470169959b2d33682ed6df26, type: 3}
@@ -369,7 +368,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b6f711afd723e34894a63311c3b4f87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 8
+  speed: 5
 --- !u!212 &888250646
 SpriteRenderer:
   serializedVersion: 2
@@ -9383,6 +9382,7 @@ GameObject:
   - component: {fileID: 1862515845}
   - component: {fileID: 1862515847}
   - component: {fileID: 1862515846}
+  - component: {fileID: 1862515848}
   m_Layer: 0
   m_Name: Collider
   m_TagString: Player
@@ -9478,6 +9478,18 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &1862515848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1862515844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81991d0de9129bb3992762b789c94333, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Collision_Player
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

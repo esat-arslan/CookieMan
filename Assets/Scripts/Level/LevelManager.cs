@@ -3,8 +3,6 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
-    public bool isFrightened;
-
     [SerializeField]
     private Conf_Portals portalsConf;
     public Conf_Portals PortalsConf => portalsConf;
@@ -28,9 +26,24 @@ public class LevelManager : MonoBehaviour
     public float FrightenedTimer => frightenedTimer;
     public Monster_Level_State CurrentState => currentState;
 
+    private void OnEnable()
+    {
+        GameEvents.OnSuperCookieEaten += SetFrightened;
+    }
+
+    private void OnDisable()
+    {
+        GameEvents.OnSuperCookieEaten -= SetFrightened;
+    }
+
     private void Start()
     {
         CreatePortals();
+    }
+
+    private void SetFrightened()
+    {
+        currentState = Monster_Level_State.Frightened;
     }
 
     private void CreatePortals()
@@ -89,12 +102,6 @@ public class LevelManager : MonoBehaviour
         {
             currentState = lastState;
             ResetFrightenedTime();
-            return;
-        }
-
-        if (isFrightened)
-        {
-            currentState = Monster_Level_State.Frightened;
             return;
         }
     }
