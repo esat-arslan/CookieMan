@@ -231,6 +231,7 @@ GameObject:
   - component: {fileID: 888250644}
   - component: {fileID: 888250648}
   - component: {fileID: 888250649}
+  - component: {fileID: 888250650}
   m_Layer: 0
   m_Name: CookieMan
   m_TagString: Player
@@ -478,6 +479,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a80bfd25269b45928efda2884ee79d7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &888250650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 888250643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3205b56ad3e1dcfc486a7f0b87019af3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Player
 --- !u!1 &941658861
 GameObject:
   m_ObjectHideFlags: 0

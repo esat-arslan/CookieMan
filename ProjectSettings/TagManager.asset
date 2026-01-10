@@ -7,6 +7,7 @@ TagManager:
   - Debug
   - Level
   - SuperCookie
+  - Monster
   layers:
   - Default
   - TransparentFX
