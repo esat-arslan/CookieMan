@@ -1,39 +1,38 @@
 using UnityEngine;
 
-public class CookieSpawner : MonoBehaviour
+public class CookieSpawner : ResettableBehavior
 {
     [SerializeField] private GameObject cookiePrefab;
     [SerializeField] private GameObject superCookiePrefab;
 
-
-    private Conf_Portals portals;
-    private Conf_SuperCookies conf_SuperCookies;
+    private Conf_Portals portalsConfig;
+    private Conf_SuperCookies superCookieConfig;
     private GridManager grid;
-    private LevelManager level;
-
+    
     void Start()
-    {
+    {   
         grid = GridManager.Instance;
-        level = GameObject.FindGameObjectWithTag("Level").GetComponent<LevelManager>();
-        portals = level.PortalsConf;
-        conf_SuperCookies = level.SuperCookieConf;
+        LevelManager level = GameObject.FindWithTag("Level").GetComponent<LevelManager>();
+        portalsConfig = level.PortalsConf;
+        superCookieConfig = level.SuperCookiesConf;
+        
         SpawnCookies();
     }
 
     private void SpawnCookies()
     {
-        foreach (GridObject gridObject in grid.GetGridObjects())
+        foreach (GridObject gridObj in grid.GetGridObjects())
         {
-            Vector3 cellPos = grid.GetWorldPosition(gridObject.GetCellPosition());
+            Vector3 cellPos = grid.GetWorldPosition(gridObj.GetCellPosition());
 
-            if (conf_SuperCookies.superCookiePositions.Contains(cellPos))
+            if (superCookieConfig.superCookiePositions.Contains(cellPos))
             {
                 GameObject obj = Instantiate(superCookiePrefab, cellPos, Quaternion.identity);
                 obj.transform.parent = gameObject.transform;
                 continue;
             }
-
-            if (gridObject.Type == GridObjectType.Path && !isPortal(cellPos))
+            
+            if (gridObj.Type == GridObjectType.Path && !IsPortalPosition(cellPos))
             {
                 GameObject obj = Instantiate(cookiePrefab, cellPos, Quaternion.identity);
                 obj.transform.parent = gameObject.transform;
@@ -41,8 +40,35 @@ public class CookieSpawner : MonoBehaviour
         }
     }
 
-    private bool isPortal(Vector3 cellPos)
+    private bool IsPortalPosition(Vector3 pos)
     {
-        return cellPos == portals.portal1 || cellPos == portals.portal2;
+        return pos == portalsConfig.portal1 || pos == portalsConfig.portal2;
+    }
+    
+    public override void Reset()
+    {
+                  
+    }
+
+    public override void ResetLate()
+    {
+        base.ResetLate();
+        SpawnCookies();  
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

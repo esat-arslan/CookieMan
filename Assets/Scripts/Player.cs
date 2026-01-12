@@ -1,18 +1,11 @@
+using System;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : ResettableBehavior
 {
     private int lives = 3;
 
-    private void OnEnable()
-    {
-        GameEvents.OnPlayerDead += HandlePlayerDead;
-    }
-
-    private void OnDisable()
-    {
-        GameEvents.OnPlayerDead -= HandlePlayerDead;
-    }
+    public event Action<int> OnLivesChanged;
 
     public int Lives
     {
@@ -20,12 +13,21 @@ public class Player : MonoBehaviour
         set
         {
             lives = value;
-            Debug.Log("Live lost");
+            if (lives == 0)
+            {
+                GameEvents.GameOver();
+            }
+            OnLivesChanged?.Invoke(lives);
         }
     }
 
-    private void HandlePlayerDead()
+    public void HandlePlayerDead()
     {
         Lives--;
+    }
+
+    public override void Reset()
+    {
+        Lives = 3;
     }
 }

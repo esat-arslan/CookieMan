@@ -132,15 +132,3 @@ public static class AI_Navigation
 public delegate (Vector2 newDir, Vector3 newTarget) GetNextTarget(Vector2 currentDir, Vector3 currentPos,
     Vector3 finalTargetPos = new());
 
-
-
-
-
-
-
-
-
-
-
-
-

@@ -2,21 +2,37 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerMovement : MonoBehaviour, IPortable
+public class PlayerMovement : ResettableBehavior, IPortable
 {
+    [SerializeField] private Conf_Player configuration;
     [SerializeField] private int speed = 3;
-
+    
     private bool shouldMove = false;
     private Vector2 previousInputDir;
     private Vector2 currentInputDir;
-
+    
     private Vector2 moveTarget;
 
     private GridManager grid;
     private LevelManager level;
-
+    
     public Vector2 PlayerDirection => currentInputDir;
     public event Action<Vector2> OnDirectionChanged;
+
+    public Vector2 CurrentInputDir
+    {
+        get => currentInputDir;
+        set
+        {
+            currentInputDir = value;
+            OnDirectionChanged?.Invoke(currentInputDir);
+        }
+    }
+
+    private void OnDisable()
+    {
+        OnDirectionChanged?.Invoke(Vector2.zero);
+    }
 
     private void Start()
     {
@@ -24,7 +40,7 @@ public class PlayerMovement : MonoBehaviour, IPortable
         level = GameObject.FindWithTag("Level").GetComponent<LevelManager>();
 
         previousInputDir = Vector2.right;
-        currentInputDir = Vector2.right;
+        CurrentInputDir = Vector2.right;
         shouldMove = true;
     }
 
@@ -66,21 +82,19 @@ public class PlayerMovement : MonoBehaviour, IPortable
 
         // fix for oscillating on one axis
         HandleDirSwitch(newDirection);
-
-        OnDirectionChanged?.Invoke(newDirection);
     }
 
     private void HandleDirSwitch(Vector2 newDirection)
     {
         // Direcion on perpendicular Axis
         previousInputDir = currentInputDir;
-        currentInputDir = newDirection;
-
+        CurrentInputDir = newDirection;
+        
         // Direction on same Axis
         if (ShouldSwitchDirection())
         {
             previousInputDir = newDirection;
-            currentInputDir = newDirection;
+            CurrentInputDir = newDirection;
         }
     }
 
@@ -104,7 +118,7 @@ public class PlayerMovement : MonoBehaviour, IPortable
     private Vector3 GetTarget(Vector2 dir)
     {
         if (dir == Vector2.zero) return transform.position;
-
+        
         if (grid.IsNeighborCellWalkable(transform.position, dir))
         {
             return grid.GetNeighborCellPosition(transform.position, dir);
@@ -120,23 +134,34 @@ public class PlayerMovement : MonoBehaviour, IPortable
 
         portalPos = grid.GetCellPosition(portalPos);
 
-        currentInputDir = entryDir;
+        CurrentInputDir = entryDir;
         previousInputDir = entryDir;
-
+        
         if (portalPos == portal1)
         {
+            // teleport to point2
             Vector3 nextToPortal = grid.GetNeighborCellPosition(portal2, entryDir);
+            
             transform.position = nextToPortal + new Vector3(entryDir.x, entryDir.y, 0) * 0.1f;
             moveTarget = grid.GetNeighborCellPosition(nextToPortal, entryDir);
         }
 
         if (portalPos == portal2)
         {
+            // teleport to point1
             Vector3 nextToPortal = grid.GetNeighborCellPosition(portal1, entryDir);
+            
             transform.position = nextToPortal + new Vector3(entryDir.x, entryDir.y, 0) * 0.1f;
             moveTarget = grid.GetNeighborCellPosition(nextToPortal, entryDir);
         }
+    }
 
-        OnDirectionChanged?.Invoke(entryDir);
+    public override void Reset()
+    {
+        transform.position = configuration.spawnPosition;
+        
+        previousInputDir = Vector2.right;
+        CurrentInputDir = Vector2.right;
+        shouldMove = true;
     }
 }

@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85ac1d81ed9c8806d941c8d0fb902220, type: 3}
+  m_Script: {fileID: 11500000, guid: ad32ccf1ef0cf524098ffc65f875936f, type: 3}
   m_Name: Conf_Portals
-  m_EditorClassIdentifier: Assembly-CSharp::Conf_Portals
+  m_EditorClassIdentifier: 
   portal1: {x: -13.5, y: -0.5, z: 0}
   portal1_entryDir: {x: 1, y: 0}
   portal2: {x: 15.5, y: -0.5, z: 0}

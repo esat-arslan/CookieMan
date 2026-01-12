@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14ca8f9cb3d67c54d906062361052f36, type: 3}
   m_Name: Conf_Monster_Archie
   m_EditorClassIdentifier: 
+  spawnPosition: {x: -0.5, y: 8.5, z: 0}
   chamberPoints:
   - {x: 0.5, y: 2.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}

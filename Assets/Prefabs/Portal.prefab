@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &8355579104810043565
+--- !u!1 &7447254161489093441
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,9 +8,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6508987594771636572}
-  - component: {fileID: 7907783398142303840}
-  - component: {fileID: 695595527920730971}
+  - component: {fileID: 1187070834920808134}
+  - component: {fileID: 2769372160457389993}
+  - component: {fileID: 8673243574507775159}
   m_Layer: 0
   m_Name: Portal
   m_TagString: Untagged
@@ -18,13 +18,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6508987594771636572
+--- !u!4 &1187070834920808134
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8355579104810043565}
+  m_GameObject: {fileID: 7447254161489093441}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 15.5, y: -0.5, z: 0}
@@ -33,13 +33,13 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &7907783398142303840
+--- !u!61 &2769372160457389993
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8355579104810043565}
+  m_GameObject: {fileID: 7447254161489093441}
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
@@ -79,15 +79,15 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &695595527920730971
+--- !u!114 &8673243574507775159
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8355579104810043565}
+  m_GameObject: {fileID: 7447254161489093441}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7748435702df5b8dca95d8192d8538b2, type: 3}
+  m_Script: {fileID: 11500000, guid: 30c32b4adca44075a523befd97ee58ce, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Portal
+  m_EditorClassIdentifier: 

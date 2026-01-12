@@ -1,10 +1,6 @@
-using UnityEngine;
-
+﻿using UnityEngine;
 
 public class GameStateSimulator : MonoBehaviour
 {
-
+        
 }
-
-
-

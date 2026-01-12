@@ -1,3 +1,4 @@
+﻿using System;
 using UnityEngine;
 
 public abstract class ResettableBehavior : MonoBehaviour
@@ -11,9 +12,10 @@ public abstract class ResettableBehavior : MonoBehaviour
     }
 
     public abstract void Reset();
+    public virtual void ResetLate(){}
 
     private void RegisterReset()
     {
-        resetManager.RegisterObjectsToReset(this);
+        resetManager.RegisterObjectToReset(this);
     }
 }

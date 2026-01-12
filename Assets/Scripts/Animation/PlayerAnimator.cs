@@ -24,8 +24,8 @@ public class PlayerAnimator : MonoBehaviour
         player = GetComponent<PlayerMovement>();
     }
 
-    private void PlayerDeadAnimation()
-    {
+    private void PlayerDeadAnimation(int lives)
+    {   
         animator.SetTrigger("PlayerDead");
     }
 
